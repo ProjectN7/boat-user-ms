@@ -16,7 +16,7 @@ import javax.validation.Valid;
 
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/")
 public class user_controller extends base_controller{
 
     @Autowired
@@ -25,7 +25,7 @@ public class user_controller extends base_controller{
     @Autowired
     private check_errors errors;
 
-    @GetMapping(path = "/user_list")
+    @GetMapping(path = "/user/user_list")
     public ResponseEntity<Object> get_user_from_cf(@RequestParam String cf) {
         List<userRTO> userRTOs;
         try {
@@ -44,7 +44,7 @@ public class user_controller extends base_controller{
 
     }
 
-    @PostMapping(path = "/save_user")
+    @PostMapping(path = "/user/save_user")
     public ResponseEntity<Object> save_uersona(@Valid @RequestBody userTO userTO) {
         try {
             errors.check_exist_cf(userTO.getCf());
