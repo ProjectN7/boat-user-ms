@@ -1,7 +1,7 @@
 package com.Project_N7.boat_management.rto;
 
 
-public class userRTO {
+public class UserRTO {
     private String cf;
     private String name;
     private String surname;
@@ -16,9 +16,9 @@ public class userRTO {
     private String password;
     private boolean is_admin;
 
-    public userRTO() { super(); };
+    public UserRTO() { super(); };
 
-    public userRTO(String cf, String name, String surname, String date_of_birth, String gender, String nationality, String address,
+    public UserRTO(String cf, String name, String surname, String date_of_birth, String gender, String nationality, String address,
                    String postal_code, String phone_number, String boat_licence, String email, String password, boolean is_admin) {
         super();
         this.cf = cf;

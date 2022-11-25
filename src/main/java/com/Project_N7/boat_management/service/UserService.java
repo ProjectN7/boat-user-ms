@@ -3,31 +3,31 @@ package com.Project_N7.boat_management.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.Project_N7.boat_management.entity.user;
-import com.Project_N7.boat_management.repository.user_repository;
-import com.Project_N7.boat_management.rto.userRTO;
-import com.Project_N7.boat_management.to.userTO;
+import com.Project_N7.boat_management.entity.User;
+import com.Project_N7.boat_management.repository.UserRepository;
+import com.Project_N7.boat_management.rto.UserRTO;
+import com.Project_N7.boat_management.to.UserTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class user_service {
+public class UserService {
 
     @Autowired
-    private user_repository user_repository;
+    private UserRepository user_repository;
 
-    public List<userRTO> get_user_by_cf(String cf) {
+    public List<UserRTO> getUserByCf(String cf) {
 
         // Chiamo il metodo trasferisciDaPersonaAPersonaRto per popolarla con i dati che
         // mi servono
-        return convert_userTO_userRTO(user_repository.get_user_by_cf(cf));
+        return convertUserTO_UserRTO(user_repository.getUserByCf(cf));
     }
-    public boolean cf_exist(String cf) {
-        return (user_repository.find_user_from_cf(cf) != null);
+    public boolean cfExist(String cf) {
+        return (user_repository.findUserFromCf(cf) != null);
     }
 
-    public Long save_user(userTO userTO) {
-        user user_to_save = new user();
+    public Long userSave(UserTO userTO) {
+        User user_to_save = new User();
         user_to_save.setCf(userTO.getCf());
         user_to_save.setName(userTO.getName());
         user_to_save.setSurname(userTO.getSurname());
@@ -43,16 +43,16 @@ public class user_service {
         return user_repository.save(user_to_save).getId_user();
     }
 
-    private List<userRTO> convert_userTO_userRTO(List<user> user_list) {
+    private List<UserRTO> convertUserTO_UserRTO(List<User> user_list) {
 
         // Creo la lista di PersonaRTO
-        List<userRTO> personaRtoList = new ArrayList<>();
+        List<UserRTO> personaRtoList = new ArrayList<>();
         // Ciclo for per passare una ad una le persone dall'entità completa
         // all'oggetto custom RTO contenente solo le informazioni che vogliamo
-        for (user user : user_list) {
+        for (User user : user_list) {
 
             // Creazione della PersonaRTO temporanea
-            userRTO userRTO_temp = populate_userRTO(user);
+            UserRTO userRTO_temp = populateUserRTO(user);
 
             // Inserimento della PersonaRTO temporanea in nella lista di personeRto
             personaRtoList.add(userRTO_temp);
@@ -61,8 +61,8 @@ public class user_service {
     }
 
 
-    private userRTO populate_userRTO(user user) {
-        userRTO userRTO_temp = new userRTO();
+    private UserRTO populateUserRTO(User user) {
+        UserRTO userRTO_temp = new UserRTO();
 
         // Popolamento tramite setter e getter
         userRTO_temp.setCf(user.getCf());
@@ -80,8 +80,8 @@ public class user_service {
         return userRTO_temp;
     }
 
-    public boolean exists_by_id(Long id) {
-        return (user_repository.find_user_from_id(id) != null);
+    public boolean existById(Long id) {
+        return (user_repository.findUserFromId(id) != null);
     }
 
 }

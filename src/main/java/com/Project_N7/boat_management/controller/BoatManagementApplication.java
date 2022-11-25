@@ -19,11 +19,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableJpaRepositories("com.Project_N7.boat_management.repository")
 @EntityScan("com.Project_N7.boat_management.entity")
 @ComponentScan({"com.Project_N7.boat_management", "com.Project_N7.boat_management.repository"})
-public class boat_management_application {
+public class BoatManagementApplication {
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(boat_management_application.class, args);
+		SpringApplication.run(BoatManagementApplication.class, args);
 
 	}
 

@@ -3,7 +3,7 @@ package com.Project_N7.boat_management.to;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
-public class userTO {
+public class UserTO {
     @NotBlank(message = "Il nome non può essere nullo o vuoto")
     @Pattern(regexp = "^[a-z A-Z]+$", message = "Il nome non può contenere numeri o caratteri speciali")
     private String name;
@@ -49,9 +49,9 @@ public class userTO {
     @Pattern(regexp = "[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]", message = "Codice fiscale non valido")
     private String cf;
 
-    public userTO() { super(); }
+    public UserTO() { super(); }
 
-    public userTO(String name, String surname, String date_of_birth, String address, String gender, String nationality,
+    public UserTO(String name, String surname, String date_of_birth, String address, String gender, String nationality,
                   String postal_code, String phone_number, String boat_licence, String email, String password, String cf) {
         super();
         this.name = name;

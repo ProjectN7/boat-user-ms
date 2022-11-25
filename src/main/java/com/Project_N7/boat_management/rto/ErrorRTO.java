@@ -3,23 +3,23 @@ package com.Project_N7.boat_management.rto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-public class errorRTO {
+public class ErrorRTO {
 
     @JsonInclude(Include.NON_NULL)
     private String field;
 
     private String message;
 
-    public errorRTO() {
+    public ErrorRTO() {
         super();
     }
 
-    public errorRTO(String message) {
+    public ErrorRTO(String message) {
         super();
         this.message = message;
     }
 
-    public errorRTO(String field, String message) {
+    public ErrorRTO(String field, String message) {
         super();
         this.message = message;
         this.field = field;

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="user")
-public class user {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
@@ -55,7 +55,7 @@ public class user {
     @Column(name = "cf")
     public String cf;
 
-    public user() { super(); }
+    public User() { super(); }
 
     public Long getId_user() { return id_user; }
 
