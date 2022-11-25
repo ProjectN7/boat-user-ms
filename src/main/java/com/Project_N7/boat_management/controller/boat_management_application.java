@@ -1,4 +1,4 @@
-package com.Project_N7.boat_management;
+package com.Project_N7.boat_management.controller;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,9 +12,9 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@SpringBootApplication( scanBasePackages = { "com.Project_N7.boat_management"} )
+@SpringBootApplication
 @EnableSwagger2
-//@ComponentScan("boatdb_user")
+@ComponentScan
 public class boat_management_application {
 
 	public static void main(String[] args) {

@@ -7,9 +7,9 @@ import com.Project_N7.boat_management.exception.cf_exception;
 import com.Project_N7.boat_management.facade.user_facade;
 import com.Project_N7.boat_management.rto.userRTO;
 import com.Project_N7.boat_management.to.userTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -18,13 +18,13 @@ import javax.validation.Valid;
 @RestController
 public class user_controller extends base_controller{
 
-    @Autowired
+    //@Autowired
     private user_facade user_facade;
 
-    @Autowired
+    //@Autowired
     private check_errors errors;
 
-    @RequestMapping(value = "/boat_management/user/user_list", method = { RequestMethod.GET})
+    @GetMapping(value = "/user/user_list")
     public ResponseEntity<Object> get_user_from_cf(@RequestParam String cf) {
         List<userRTO> userRTOs;
         try {
@@ -43,8 +43,8 @@ public class user_controller extends base_controller{
 
     }
 
-    @RequestMapping(value = "/boat_management/user/save_user", method = { RequestMethod.POST})
-    public ResponseEntity<Object> save_uersona(@Valid @RequestBody userTO userTO) {
+    @PostMapping(value = "/boat_management/user/save_user")
+    public ResponseEntity<Object> save_user(@Valid @RequestBody userTO userTO) {
         try {
             errors.check_exist_cf(userTO.getCf());
         } catch (cf_exception e) {

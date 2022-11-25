@@ -7,16 +7,18 @@ import com.Project_N7.boat_management.service.user_service;
 
 import com.Project_N7.boat_management.to.userTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-@Component
+//@Component
+@Service
 public class user_facade {
-
     @Autowired
     user_service user_service;
 
