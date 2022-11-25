@@ -2,10 +2,12 @@ package com.Project_N7.boat_management.controller;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -14,7 +16,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-@ComponentScan
+@EnableJpaRepositories("com.Project_N7.boat_management.repository")
+@EntityScan("com.Project_N7.boat_management.entity")
+@ComponentScan({"com.Project_N7.boat_management", "com.Project_N7.boat_management.repository"})
 public class boat_management_application {
 
 	public static void main(String[] args) {
@@ -34,7 +38,7 @@ public class boat_management_application {
 		public Docket api() {
 			return new Docket(DocumentationType.SWAGGER_2)
 					.select()
-					.apis(RequestHandlerSelectors.basePackage("boat_management"))
+					.apis(RequestHandlerSelectors.basePackage("com"))
 					.paths(PathSelectors.any())
 					.build()
 					.pathMapping("/");

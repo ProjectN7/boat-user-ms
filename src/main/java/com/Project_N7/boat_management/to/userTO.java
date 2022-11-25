@@ -34,9 +34,8 @@ public class userTO {
     private String phone_number;
 
     @NotBlank(message = "La patente nautica non può essere nullo o vuoto")
-    @Pattern(regexp = "^[A-Z]{2}+[0-9]{6}$", message = "Patente nautica non valida")
+    @Pattern(regexp = "^[A-Z]{2}[0-9]{6}$", message = "Patente nautica non valida")
     private String boat_licence;
-    //Chiedi a Davide come mettere lo spazio nella regex
 
     @NotBlank(message = "La mail non può essere nulla o vuota")
     @Pattern(regexp = "^[a-zA-Z0-9.]+@[a-zA-Z]+[.][a-zA-Z]+", message = "Mail non valida, inserire una mail example@domain.com")

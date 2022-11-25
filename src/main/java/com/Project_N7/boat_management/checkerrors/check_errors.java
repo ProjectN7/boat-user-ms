@@ -7,6 +7,7 @@ import com.Project_N7.boat_management.exception.cf_exception;
 import com.Project_N7.boat_management.rto.errorRTO;
 import com.Project_N7.boat_management.service.user_service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
