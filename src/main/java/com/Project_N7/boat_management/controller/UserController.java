@@ -1,5 +1,6 @@
 package com.Project_N7.boat_management.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.Project_N7.boat_management.checkerrors.CheckErrors;
@@ -41,7 +42,7 @@ public class UserController extends BaseController {
             return new ResponseEntity<>("Nessuna persona associata al CF", HttpStatus.BAD_REQUEST);
         } else {
 
-            return new ResponseEntity<>(userRTOs ,HttpStatus.OK);
+            return new ResponseEntity<>(userRTOs,HttpStatus.OK);
         }
 
     }
@@ -55,5 +56,6 @@ public class UserController extends BaseController {
         }
         return new ResponseEntity<>(user_facade.userSave(userTO), HttpStatus.OK);
     }
+
 
 }

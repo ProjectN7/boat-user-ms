@@ -13,7 +13,7 @@ public class UserTO {
     private String surname;
 
     @NotBlank(message = "La data di nascita non può essere nulla o vuota")
-    @Pattern(regexp = "^[0-9]{2}[0-9]{2}[0-9]{4}$", message = "La data di nascita non può contenere lettere o caratteri speciali")
+    @Pattern(regexp = "^[0-9]{4}-[0-9]{2}-[0-9]{2}$", message = "La data di nascita non può contenere lettere o caratteri speciali")
     private String date_of_birth;
 
     @NotBlank(message = "L'indirizzo non può essere nullo o vuoto")
