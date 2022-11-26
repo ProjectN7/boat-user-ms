@@ -16,7 +16,7 @@ public class UserRTO {
     private String password;
     private boolean is_admin;
 
-    public UserRTO() { super(); };
+    public UserRTO() { super(); }
 
     public UserRTO(String cf, String name, String surname, String date_of_birth, String gender, String nationality, String address,
                    String postal_code, String phone_number, String boat_licence, String email, String password, boolean is_admin) {
