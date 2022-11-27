@@ -27,11 +27,6 @@ public class CheckErrors {
             // differente HttpStatus
         }
 
-        for (Long id : ids) {
-            errorRTO_list.add(checkIfNull(id));
-            errorRTO_list.add(checkId(id));
-        }
-
         List<ErrorRTO> errorRtoListClear = new ArrayList<>();
         for (ErrorRTO errorRtoTemp : errorRTO_list) {
             if (errorRtoTemp != null) {
@@ -45,12 +40,6 @@ public class CheckErrors {
         }
     }
 
-    public ErrorRTO checkId(Long id) {
-        if (!user_service.existById(id)) {
-            return new ErrorRTO("id: " + id + " non presente");
-        }
-        return null;
-    }
 
     public ErrorRTO checkIfNull(Long id) {
         if (id == null) {

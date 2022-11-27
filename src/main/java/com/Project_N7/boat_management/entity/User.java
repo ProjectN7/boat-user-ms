@@ -2,8 +2,6 @@ package com.Project_N7.boat_management.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,10 +9,8 @@ import javax.persistence.Table;
 @Table(name="user")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    @Column(name = "id_user")
-    private Long id_user;
+    @Column(name = "cf")
+    public String cf;
 
     @Column(name = "name")  //Mapping della colonna
     private String name;
@@ -52,14 +48,8 @@ public class User {
     @Column(name = "is_admin")
     private boolean is_admin;
 
-    @Column(name = "cf")
-    public String cf;
-
     public User() { super(); }
 
-    public Long getId_user() { return id_user; }
-
-    public void setId_user(Long id_user) { this.id_user = id_user; }
 
     public String getName() { return name; }
 

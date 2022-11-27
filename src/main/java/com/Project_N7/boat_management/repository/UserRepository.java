@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, String> {
 
     @Query("SELECT u " + "FROM User u WHERE cf=u.cf")
     List<User> getUserByCf(String cf);
@@ -17,11 +17,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT  u.cf " + "FROM User u " + "WHERE u.cf = ?1")
     String cfExist(String cf);
 
-    @Query("SELECT u FROM User u WHERE u.id_user = ?1")
-    User findUserFromId(Long id);
-
     @Query("SELECT u FROM User u WHERE u.name LIKE ?1 AND u.surname LIKE ?2")
-    List<User> findUserFromNameSurname(String nome, String cognome);
+    List<User> findUserFromNameSurname(String name, String surname);
 
     @Query("SELECT u FROM User u WHERE u.cf = ?1")
     User findUserFromCf(String cf);

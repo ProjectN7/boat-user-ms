@@ -76,7 +76,8 @@ public class Boat {
         return declaration_of_conformity;
     }
 
-    public void setDeclaration_of_conformity(String declaration_of_conformity) { this.declaration_of_conformity = declaration_of_conformity; }
+    public void setDeclaration_of_conformity(String declaration_of_conformity) {
+        this.declaration_of_conformity = declaration_of_conformity;}
 
     public String getRca() {
         return rca;

@@ -26,7 +26,7 @@ public class UserService {
         return (user_repository.findUserFromCf(cf) != null);
     }
 
-    public Long userSave(UserTO userTO) {
+    public String userSave(UserTO userTO) {
         User user_to_save = new User();
         user_to_save.setCf(userTO.getCf());
         user_to_save.setName(userTO.getName());
@@ -40,7 +40,8 @@ public class UserService {
         user_to_save.setBoat_licence(userTO.getBoat_licence());
         user_to_save.setEmail(userTO.getEmail());
         user_to_save.setPassword(userTO.getPassword());
-        return user_repository.save(user_to_save).getId_user();
+        return user_repository.save(user_to_save).getCf();
+        //return user_repository.save(user_to_save).getCf();
     }
 
     private List<UserRTO> convertUserTO_UserRTO(List<User> user_list) {
@@ -78,10 +79,6 @@ public class UserService {
         userRTO_temp.setEmail(user.getEmail());
         userRTO_temp.setPassword(user.getPassword());
         return userRTO_temp;
-    }
-
-    public boolean existById(Long id) {
-        return (user_repository.findUserFromId(id) != null);
     }
 
 }

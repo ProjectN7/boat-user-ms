@@ -27,9 +27,9 @@ public class UserFacade {
     }
 
     public String userSave(UserTO userTO) {
-        Long id = user_service.userSave(userTO);
-        if (id != null) {
-            return "Alla persona aggiunta è stato assegnato l'id: " + id;
+        String cf = user_service.userSave(userTO);
+        if (cf != null) {
+            return "La persona con il cf: " + cf + "è stata aggiunta";
         }
 
         return "La persona non è stata inserita";
