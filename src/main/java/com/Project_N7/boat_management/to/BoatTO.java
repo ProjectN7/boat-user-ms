@@ -9,10 +9,10 @@ public class BoatTO {
     @Pattern(regexp = "^[A-Z]{2}-[0-9]{5}$", message = "La targa non può contenere caratteri speciali o non seguire la forma XX00000")
     private String licence_plate;
 
-    @Pattern(regexp = "^[A-Z]$", message = "Il nome non può contenere numeri o caratteri speciali")
+    @Pattern(regexp = "^[a-z A-Z]+$", message = "Il nome non può contenere numeri o caratteri speciali")
     private String name;
 
-    @Pattern(regexp = "^[A-Z]$", message = "Il nome non può contenere numeri o caratteri speciali")
+    @Pattern(regexp = "^[a-z A-Z]+$", message = "Il nome non può contenere numeri o caratteri speciali")
     private String colour;
 
     @NotBlank(message = "La licenza di navigazione non può essere nulla o vuota")
@@ -20,7 +20,7 @@ public class BoatTO {
     private String navigation_licence;
 
     @NotBlank(message = "La potenza non può essere nulla o vuota")
-    @Pattern(regexp = "^[0-9]$", message = "La potenza non può contenere caratteri speciali o lettere")
+    @Pattern(regexp = "^[0-9]{3}$", message = "La potenza non può contenere caratteri speciali o lettere")
     private String power;
 
     @NotBlank(message = "La dichiarazione di conformità non può essere nulla o vuota")

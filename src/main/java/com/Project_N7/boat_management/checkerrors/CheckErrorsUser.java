@@ -13,7 +13,7 @@ import org.springframework.util.CollectionUtils;
 
 //@Component
 @Service
-public class CheckErrors {
+public class CheckErrorsUser {
 
     @Autowired
     private UserService user_service;

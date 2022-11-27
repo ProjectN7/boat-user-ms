@@ -1,10 +1,8 @@
 package com.Project_N7.boat_management.controller;
 
-import java.util.HashMap;
 import java.util.List;
 
-import com.Project_N7.boat_management.checkerrors.CheckErrors;
-import com.Project_N7.boat_management.entity.User;
+import com.Project_N7.boat_management.checkerrors.CheckErrorsUser;
 import com.Project_N7.boat_management.exception.CfException;
 import com.Project_N7.boat_management.facade.UserFacade;
 import com.Project_N7.boat_management.rto.UserRTO;
@@ -24,7 +22,7 @@ public class UserController extends BaseController {
     private UserFacade user_facade;
 
     @Autowired
-    private CheckErrors errors;
+    private CheckErrorsUser errors;
 
     private UserRTO userRTO;
 
