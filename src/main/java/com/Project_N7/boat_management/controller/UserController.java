@@ -7,6 +7,7 @@ import com.Project_N7.boat_management.exception.CfException;
 import com.Project_N7.boat_management.facade.UserFacade;
 import com.Project_N7.boat_management.rto.UserRTO;
 import com.Project_N7.boat_management.to.UserTO;
+import com.Project_N7.boat_management.to.UserToModifyTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,6 +54,20 @@ public class UserController extends BaseController {
             return new ResponseEntity<>(e.getErrorRTO_list(), e.getHttp_status());
         }
         return new ResponseEntity<>(user_facade.userSave(userTO), HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @PostMapping(path = "/modificaUser/{cf}")
+    public ResponseEntity<Object> modificaUser(@Valid @PathVariable("cf") String cf,
+                                               @Valid @RequestBody UserToModifyTO userToModifyTO) {
+        try{
+            errors.checkInformations(cf, userToModifyTO);
+        } catch (CfException e) {
+            return new ResponseEntity<>(e.getErrorRTO_list(), e.getHttp_status());
+        } catch (IllegalArgumentException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(user_facade.modificaUser(cf, userToModifyTO), HttpStatus.OK);
     }
 
 
