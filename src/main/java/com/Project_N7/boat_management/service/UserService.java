@@ -10,13 +10,19 @@ import com.Project_N7.boat_management.rto.UserRTO;
 import com.Project_N7.boat_management.to.UserTO;
 import com.Project_N7.boat_management.to.UserToModifyTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+//è stato aggiunto implements UserDetailsService per poter utilizzare il metodo loadUserByUsername
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+
 
     public List<UserRTO> getUserByCf(String cf) {
 
@@ -122,4 +128,15 @@ public class UserService {
         return userCompletoRTOtemp;
 
     }
+
+    //loadUserByUsername è built-in
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
+
+        //Logica per prendere lo user da DB
+        //Si utilizza User di SpringSecurity
+        return new org.springframework.security.core.userdetails.User(userRepository.getEmailFromEmail(email),
+                userRepository.getPasswordFromEmail(email), new ArrayList<>());
+    }
+
 }

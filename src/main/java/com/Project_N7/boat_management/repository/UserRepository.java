@@ -29,4 +29,10 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query("SELECT u FROM User u WHERE u.email = ?1")
     User findUserFromEmail(String email);
 
+    @Query("SELECT password FROM User WHERE email = ?1")
+    String getPasswordFromEmail(String email);
+
+    @Query("SELECT email FROM User Where email = ?1")
+    String getEmailFromEmail(String email);
+
 }
