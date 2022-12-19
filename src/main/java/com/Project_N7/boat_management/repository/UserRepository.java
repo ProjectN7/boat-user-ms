@@ -12,7 +12,7 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, String> {
 
     @Query("SELECT u " + "FROM User u WHERE cf=u.cf")
-    List<User> getUserByCf(String cf);
+    User getUserByCf(String cf);
 
 
     @Query(value = "SELECT  u.cf " + "FROM User u " + "WHERE u.cf = ?1")

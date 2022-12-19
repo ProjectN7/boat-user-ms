@@ -31,8 +31,8 @@ public class UserTO {
     @Pattern(regexp = "^[0-9]{5}$", message = POSTAL_CODE_INFO)
     private String postalCode;
 
-    @NotBlank(message = "Il numero di telefono non può essere nullo o vuoto")
-    @Pattern(regexp = "^[0-9]{10}$", message = "Il numero di telefono non può contenere lettere o caratteri speciali")
+    @NotBlank(message = PHONE_NUMBER_CANNOT_BE_EMPTY)
+    @Pattern(regexp = "^[0-9]{10}$", message = PHONE_NUMBER_INFO)
     private String phoneNumber;
 
     @NotBlank(message = BOAT_LICENCE_CANNOT_BE_EMPTY)

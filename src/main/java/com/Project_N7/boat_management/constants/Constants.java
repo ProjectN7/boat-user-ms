@@ -71,5 +71,23 @@ public class Constants {
     public static final String CF = "Il CF: ";
 
     public static final String NOT_EXIST = "non è presente";
+
+    public static final String PHONE_NUMBER_CANNOT_BE_EMPTY = "Il numero di telefono non può essere nullo o vuoto";
+
+    public static final String PHONE_NUMBER_INFO = "Il numero di telefono non può contenere lettere o caratteri speciali";
+
+    public static final String POSTAL_CODE = "Postal Code";
+
+    public static final String ADDRESS = "Address";
+
+    public static final String PHONE_NUMBER = "Phone number";
+
+    public static final String BOAT_LICENCE = "Boat Licence";
+
+    public static final String EMAIL = "Email";
+
+    public static final String PASSWORD = "Password";
+
+    public static final String NOT_VALID = "Campo non valido";
 }
 

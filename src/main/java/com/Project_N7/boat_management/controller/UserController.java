@@ -31,7 +31,7 @@ import static com.Project_N7.boat_management.constants.Constants.*;
 public class UserController extends BaseController {
 
     @Autowired
-    private UserFacade user_facade;
+    private UserFacade userFacade;
 
     @Autowired
     private CheckErrorsUser errors;
@@ -50,20 +50,14 @@ public class UserController extends BaseController {
     //Restituisce una lista, vedi di farti restituire uno solo
     @GetMapping(value = "/user/userList")
     public ResponseEntity<Object> getUserFromCf(@RequestParam String cf) {
-        List<UserRTO> userRTOs;
+        UserRTO userRTOs;
         try {
-            userRTOs = user_facade.getUserByCf(cf);
+            userRTOs = userFacade.getUserByCf(cf);
         } catch (ErrorException e) {
 
             return new ResponseEntity<>(new ServiceResponse(CODE_404, HttpStatus.NOT_FOUND.name(), EXCEPTION, e.getMessage(), e.getMessage()), HttpStatus.NOT_FOUND);
         }
-        if (userRTOs.isEmpty()) {
-            return new ResponseEntity<>("Nessuna persona associata al CF", HttpStatus.BAD_REQUEST);
-        } else {
-
             return new ResponseEntity<>(new ServiceResponse(CODE_200, HttpStatus.OK.name(), CF_FOUND, CF_FOUND, userRTOs), HttpStatus.OK);
-        }
-
     }
 
     @PostMapping(value = "/user/userSave")
@@ -73,7 +67,7 @@ public class UserController extends BaseController {
         } catch (ErrorException e) {
             return new ResponseEntity<>(new ServiceResponse(CODE_409, HttpStatus.CONFLICT.name(), EXCEPTION, e.getMessage(), e.getMessage()), HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>(new ServiceResponse(CODE_200, HttpStatus.OK.name(), CF_FOUND, CF_FOUND, user_facade.userSave(userTO)), HttpStatus.OK);
+        return new ResponseEntity<>(new ServiceResponse(CODE_200, HttpStatus.OK.name(), CF_FOUND, CF_FOUND, userFacade.userSave(userTO)), HttpStatus.OK);
     }
 
     @CrossOrigin
@@ -87,7 +81,7 @@ public class UserController extends BaseController {
         } catch (Exception e) {
             return new ResponseEntity<>(new ServiceResponse(CODE_500, HttpStatus.INTERNAL_SERVER_ERROR.name(), EXCEPTION, e.getMessage(), e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(new ServiceResponse(CODE_200, HttpStatus.OK.name(), CF_FOUND, CF_FOUND, user_facade.modificaUser(cf, userToModifyTO)), HttpStatus.OK);
+        return new ResponseEntity<>(new ServiceResponse(CODE_200, HttpStatus.OK.name(), CF_FOUND, CF_FOUND, userFacade.modificaUser(cf, userToModifyTO)), HttpStatus.OK);
     }
 
 
@@ -115,7 +109,7 @@ public class UserController extends BaseController {
         } catch (ErrorException e) {
             return new ResponseEntity<>(new ServiceResponse(CODE_404, HttpStatus.NOT_FOUND.name(), EXCEPTION, e.getMessage(), e.getMessage()), HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(new ServiceResponse(CODE_200, HttpStatus.OK.name(), CF_FOUND, CF_FOUND, user_facade.deleteUserByCf(cf)), HttpStatus.OK);
+        return new ResponseEntity<>(new ServiceResponse(CODE_200, HttpStatus.OK.name(), CF_FOUND, CF_FOUND, userFacade.deleteUserByCf(cf)), HttpStatus.OK);
     }
 
     //Test per vedere se l'autenticazione funzioni oppure no

@@ -19,19 +19,19 @@ import static com.Project_N7.boat_management.constants.Constants.*;
 @Service
 public class UserFacade {
     @Autowired
-    UserService user_service;
+    UserService userService;
 
-    public List<UserRTO> getUserByCf(String cf) throws ErrorException {
-        if (!user_service.cfExist(cf)) { // Prima chiamata al server per vedere se il
+    public UserRTO getUserByCf(String cf) throws ErrorException {
+        if (!userService.cfExist(cf)) { // Prima chiamata al server per vedere se il
             // cf esiste
             throw new ErrorException(CF_NOT_FOUND); // Altrimenti lancio l'eccezione
         }
         // Se il numero è presente vado a cercarmi le persone che lo posseggono
-        return user_service.getUserByCf(cf);
+        return userService.getUserByCf(cf);
     }
 
     public String userSave(UserTO userTO) {
-        String cf = user_service.userSave(userTO);
+        String cf = userService.userSave(userTO);
         String resp = "";
         if (cf != null) {
             resp = USER_MADE;
@@ -43,14 +43,14 @@ public class UserFacade {
     }
 
     public Object modificaUser(String cf, UserToModifyTO userToModifyTO){
-        user_service.modificaUser(cf, userToModifyTO);
+        userService.modificaUser(cf, userToModifyTO);
         return CHANGE_MADE;
     }
 
     @Transactional
     public Object deleteUserByCf (String cf) {
         if (cf != null){
-            user_service.deleteUserByCf(cf);
+            userService.deleteUserByCf(cf);
             return USER_CANCELLED;
         }
         return USER_NOT_CANCELLED;

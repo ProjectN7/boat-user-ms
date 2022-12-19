@@ -23,11 +23,11 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
 
 
-    public List<UserRTO> getUserByCf(String cf) {
+    public UserRTO getUserByCf(String cf) {
 
         // Chiamo il metodo trasferisciDaPersonaAPersonaRto per popolarla con i dati che
         // mi servono
-        return convertUserTO_UserRTO(userRepository.getUserByCf(cf));
+        return populateUserRTO(userRepository.getUserByCf(cf));
     }
     public boolean cfExist(String cf) {
         return (userRepository.findUserFromCf(cf) != null);
@@ -51,13 +51,13 @@ public class UserService implements UserDetailsService {
         //return user_repository.save(user_to_save).getCf();
     }
 
-    private List<UserRTO> convertUserTO_UserRTO(List<User> user_list) {
+    private List<UserRTO> convertUserTO_UserRTO(List<User> userList) {
 
         // Creo la lista di PersonaRTO
         List<UserRTO> personaRtoList = new ArrayList<>();
         // Ciclo for per passare una ad una le persone dall'entità completa
         // all'oggetto custom RTO contenente solo le informazioni che vogliamo
-        for (User user : user_list) {
+        for (User user : userList) {
 
             // Creazione della PersonaRTO temporanea
             UserRTO userRTO_temp = populateUserRTO(user);
