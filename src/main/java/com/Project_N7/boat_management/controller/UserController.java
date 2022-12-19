@@ -3,10 +3,11 @@ package com.Project_N7.boat_management.controller;
 import java.util.List;
 
 import com.Project_N7.boat_management.checkerrors.CheckErrorsUser;
-import com.Project_N7.boat_management.exception.CfException;
+import com.Project_N7.boat_management.exception.ErrorException;
 import com.Project_N7.boat_management.facade.UserFacade;
 import com.Project_N7.boat_management.model.JwtRequest;
 import com.Project_N7.boat_management.model.Jwtresponse;
+import com.Project_N7.boat_management.model.ServiceResponse;
 import com.Project_N7.boat_management.rto.UserRTO;
 import com.Project_N7.boat_management.service.UserService;
 import com.Project_N7.boat_management.to.UserTO;
@@ -22,6 +23,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import static com.Project_N7.boat_management.constants.Constants.*;
 
 
 @RestController
@@ -50,15 +53,15 @@ public class UserController extends BaseController {
         List<UserRTO> userRTOs;
         try {
             userRTOs = user_facade.getUserByCf(cf);
-        } catch (CfException e) {
+        } catch (ErrorException e) {
 
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new ServiceResponse(CODE_404, HttpStatus.NOT_FOUND.name(), EXCEPTION, e.getMessage(), e.getMessage()), HttpStatus.NOT_FOUND);
         }
         if (userRTOs.isEmpty()) {
             return new ResponseEntity<>("Nessuna persona associata al CF", HttpStatus.BAD_REQUEST);
         } else {
 
-            return new ResponseEntity<>(userRTOs, HttpStatus.OK);
+            return new ResponseEntity<>(new ServiceResponse(CODE_200, HttpStatus.OK.name(), CF_FOUND, CF_FOUND, userRTOs), HttpStatus.OK);
         }
 
     }
@@ -67,10 +70,10 @@ public class UserController extends BaseController {
     public ResponseEntity<Object> userSave(@Valid @RequestBody UserTO userTO) {
         try {
             errors.checkExistCf(userTO.getCf());
-        } catch (CfException e) {
-            return new ResponseEntity<>(e.getErrorRTO_list(), e.getHttp_status());
+        } catch (ErrorException e) {
+            return new ResponseEntity<>(new ServiceResponse(CODE_409, HttpStatus.CONFLICT.name(), EXCEPTION, e.getMessage(), e.getMessage()), HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>(user_facade.userSave(userTO), HttpStatus.OK);
+        return new ResponseEntity<>(new ServiceResponse(CODE_200, HttpStatus.OK.name(), CF_FOUND, CF_FOUND, user_facade.userSave(userTO)), HttpStatus.OK);
     }
 
     @CrossOrigin
@@ -79,12 +82,12 @@ public class UserController extends BaseController {
                                                @Valid @RequestBody UserToModifyTO userToModifyTO) {
         try {
             errors.checkInformations(cf, userToModifyTO);
-        } catch (CfException e) {
-            return new ResponseEntity<>(e.getErrorRTO_list(), e.getHttp_status());
-        } catch (IllegalArgumentException | IllegalAccessException e) {
-            e.printStackTrace();
+        } catch (ErrorException e) {
+            return new ResponseEntity<>(new ServiceResponse(CODE_400, HttpStatus.BAD_REQUEST.name(), EXCEPTION, e.getMessage(), e.getMessage()), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ServiceResponse(CODE_500, HttpStatus.INTERNAL_SERVER_ERROR.name(), EXCEPTION, e.getMessage(), e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(user_facade.modificaUser(cf, userToModifyTO), HttpStatus.OK);
+        return new ResponseEntity<>(new ServiceResponse(CODE_200, HttpStatus.OK.name(), CF_FOUND, CF_FOUND, user_facade.modificaUser(cf, userToModifyTO)), HttpStatus.OK);
     }
 
 
@@ -95,7 +98,7 @@ public class UserController extends BaseController {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getEmail(), jwtRequest.getPassword()));
         } catch (BadCredentialsException e) {
-            throw new Exception("INVALID_CREDENTIALS", e);
+            throw new Exception(INVALID_CREDENTIALS, e);
         }
         //Ogni volta che viene passato un jwtRequest verrà generato il token
         final UserDetails userDetails = userService.loadUserByUsername(jwtRequest.getEmail());
@@ -103,6 +106,16 @@ public class UserController extends BaseController {
 
         return new Jwtresponse(token);
 
+    }
+    @CrossOrigin
+    @GetMapping(path = "/user/userDelete")
+    public ResponseEntity<Object> deleteUser(@RequestParam String cf){
+        try {
+            errors.checkExistCf(cf);
+        } catch (ErrorException e) {
+            return new ResponseEntity<>(new ServiceResponse(CODE_404, HttpStatus.NOT_FOUND.name(), EXCEPTION, e.getMessage(), e.getMessage()), HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(new ServiceResponse(CODE_200, HttpStatus.OK.name(), CF_FOUND, CF_FOUND, user_facade.deleteUserByCf(cf)), HttpStatus.OK);
     }
 
     //Test per vedere se l'autenticazione funzioni oppure no

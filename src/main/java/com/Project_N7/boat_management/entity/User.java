@@ -18,8 +18,8 @@ public class User {
     @Column(name = "surname")
     private String surname;
 
-    @Column(name = "date_of_birth")
-    private String date_of_birth;
+    @Column(name = "dateOfBirth")
+    private String dateOfBirth;
 
     @Column(name = "address")
     private String address;
@@ -30,14 +30,14 @@ public class User {
     @Column(name = "nationality")
     private String nationality;
 
-    @Column(name = "postal_code")
-    private String postal_code;
+    @Column(name = "postalCode")
+    private String postalCode;
 
-    @Column(name = "phone_number")
-    private String phone_number;
+    @Column(name = "phoneNumber")
+    private String phoneNumber;
 
-    @Column(name = "boat_licence")
-    private String boat_licence;
+    @Column(name = "boatLicence")
+    private String boatLicence;
 
     @Column(name = "email")
     private String email;
@@ -45,8 +45,11 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "is_admin")
-    private boolean is_admin;
+    @Column(name = "isAdmin")
+    private boolean isAdmin;
+
+    @Column(name = "isActive")
+    private int isActive;
 
     public User() { super(); }
 
@@ -59,9 +62,9 @@ public class User {
 
     public void setSurname(String surname) { this.surname = surname; }
 
-    public String getDate_of_birth() { return date_of_birth; }
+    public String getDateOfBirth() { return dateOfBirth; }
 
-    public void setDate_of_birth(String date_of_birth) { this.date_of_birth = date_of_birth; }
+    public void setDateOfBirth(String dateOfBirth) { this.dateOfBirth = dateOfBirth; }
 
     public String getAddress() { return address; }
 
@@ -75,17 +78,17 @@ public class User {
 
     public void setNationality(String nationality) { this.nationality = nationality; }
 
-    public String getPostal_code() { return postal_code; }
+    public String getPostalCode() { return postalCode; }
 
-    public void setPostal_code(String postal_code) { this.postal_code = postal_code; }
+    public void setPostalCode(String postalCode) { this.postalCode = postalCode; }
 
-    public String getPhone_number() { return phone_number; }
+    public String getPhoneNumber() { return phoneNumber; }
 
-    public void setPhone_number(String phone_number) { this.phone_number = phone_number; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
-    public String getBoat_licence() { return boat_licence; }
+    public String getBoatLicence() { return boatLicence; }
 
-    public void setBoat_licence(String boat_licence) { this.boat_licence = boat_licence; }
+    public void setBoatLicence(String boatLicence) { this.boatLicence = boatLicence; }
 
     public String getEmail() { return email; }
 
@@ -95,12 +98,19 @@ public class User {
 
     public void setPassword(String password) { this.password = password; }
 
-    public boolean isIs_admin() { return is_admin; }
+    public boolean isAdmin() { return isAdmin; }
 
-    public void setIs_admin(boolean is_admin) { this.is_admin = is_admin; }
+    public void setAdmin(boolean admin) { this.isAdmin = admin; }
 
     public String getCf() { return cf; }
 
     public void setCf(String cf) { this.cf = cf; }
 
+    public int getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(int isActive) {
+        this.isActive = isActive;
+    }
 }

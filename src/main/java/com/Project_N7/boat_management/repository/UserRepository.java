@@ -2,6 +2,7 @@ package com.Project_N7.boat_management.repository;
 
 import com.Project_N7.boat_management.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -23,8 +24,8 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query("SELECT u FROM User u WHERE u.cf = ?1")
     User findUserFromCf(String cf);
 
-    @Query("SELECT u FROM User u WHERE u.boat_licence = ?1")
-    User findUserFromBoatLicence(String boat_licence);
+    @Query("SELECT u FROM User u WHERE u.boatLicence = ?1")
+    User findUserFromBoatLicence(String boatLicence);
 
     @Query("SELECT u FROM User u WHERE u.email = ?1")
     User findUserFromEmail(String email);
@@ -34,5 +35,8 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     @Query("SELECT email FROM User Where email = ?1")
     String getEmailFromEmail(String email);
+    @Modifying(clearAutomatically = true,flushAutomatically = true)
+    @Query("UPDATE User SET isActive = 0 WHERE cf = ?1")
+    void deleteUserByCf(String cf);
 
 }
