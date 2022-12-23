@@ -1,7 +1,9 @@
 package com.Project_N7.boat_management.config;
 
+import com.Project_N7.boat_management.filter.CorsConfig;
 import com.Project_N7.boat_management.filter.JwtFilter;
 import com.Project_N7.boat_management.service.UserService;
+import org.apache.catalina.filters.CorsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +18,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.servlet.http.HttpServletResponse;
+
 
 @Configuration
 @EnableWebSecurity
@@ -23,6 +27,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CorsConfig corsConfig;
 
     @Autowired
     private JwtFilter jwtFilter;
@@ -46,10 +53,35 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
        and so each and every request needs to be re-authenticated.
      */
 
+
+    /*
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests().antMatchers("/user/authenticate").permitAll().anyRequest().authenticated().and()
+        http.cors().and().csrf().disable().authorizeRequests().antMatchers("/user/authenticate").permitAll().anyRequest().authenticated().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(corsConfig.corsFilter(), UsernamePasswordAuthenticationFilter.class);
     }
+*/
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+
+
+        // Enable CORS and disable CSRF
+        http
+                .cors().and().csrf().disable()
+                .addFilterBefore(corsConfig.corsFilter(), UsernamePasswordAuthenticationFilter.class)
+                // Set session management to stateless
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                // Set unauthorized requests exception handler
+                .exceptionHandling()
+                .authenticationEntryPoint((request, response, ex) -> {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
+                })
+                .and();
+
+    }
+
 }

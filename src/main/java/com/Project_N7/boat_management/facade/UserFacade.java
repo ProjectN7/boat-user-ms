@@ -1,5 +1,6 @@
 package com.Project_N7.boat_management.facade;
 
+import com.Project_N7.boat_management.entity.User;
 import com.Project_N7.boat_management.exception.ErrorException;
 import com.Project_N7.boat_management.rto.UserRTO;
 import com.Project_N7.boat_management.service.UserService;
@@ -45,6 +46,10 @@ public class UserFacade {
     public Object modificaUser(String cf, UserToModifyTO userToModifyTO){
         userService.modificaUser(cf, userToModifyTO);
         return CHANGE_MADE;
+    }
+
+    public User getUserFromEmail(String email) throws ErrorException {
+        return userService.getUserFromEmail(email);
     }
 
     @Transactional

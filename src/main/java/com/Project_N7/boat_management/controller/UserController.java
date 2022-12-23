@@ -3,6 +3,7 @@ package com.Project_N7.boat_management.controller;
 import java.util.List;
 
 import com.Project_N7.boat_management.checkerrors.CheckErrorsUser;
+import com.Project_N7.boat_management.entity.User;
 import com.Project_N7.boat_management.exception.ErrorException;
 import com.Project_N7.boat_management.facade.UserFacade;
 import com.Project_N7.boat_management.model.JwtRequest;
@@ -47,7 +48,9 @@ public class UserController extends BaseController {
 
     private UserRTO userRTO;
 
+
     //Restituisce una lista, vedi di farti restituire uno solo
+
     @GetMapping(value = "/user/userList")
     public ResponseEntity<Object> getUserFromCf(@RequestParam String cf) {
         UserRTO userRTOs;
@@ -60,6 +63,23 @@ public class UserController extends BaseController {
             return new ResponseEntity<>(new ServiceResponse(CODE_200, HttpStatus.OK.name(), CF_FOUND, CF_FOUND, userRTOs), HttpStatus.OK);
     }
 
+
+    @GetMapping(value = "/user/getUserByEmail")
+    public ResponseEntity<Object> getUserByEmail(@RequestParam String email) {
+        User user;
+        try {
+            user = userFacade.getUserFromEmail(email);
+        } catch (ErrorException e) {
+
+            return new ResponseEntity<>(new ServiceResponse(CODE_404, HttpStatus.NOT_FOUND.name(), EXCEPTION, e.getMessage(), e.getMessage()), HttpStatus.NOT_FOUND);
+        }
+        System.out.println(user);
+
+        return new ResponseEntity<>(new ServiceResponse(CODE_200, HttpStatus.OK.name(), CF_FOUND, CF_FOUND, user), HttpStatus.OK);
+
+    }
+
+    @CrossOrigin
     @PostMapping(value = "/user/userSave")
     public ResponseEntity<Object> userSave(@Valid @RequestBody UserTO userTO) {
         try {
@@ -70,9 +90,9 @@ public class UserController extends BaseController {
         return new ResponseEntity<>(new ServiceResponse(CODE_200, HttpStatus.OK.name(), CF_FOUND, CF_FOUND, userFacade.userSave(userTO)), HttpStatus.OK);
     }
 
-    @CrossOrigin
+
     @PostMapping(path = "/modificaUser/{cf}")
-    public ResponseEntity<Object> modificaUser(@Valid @PathVariable("cf") String cf,
+    public ResponseEntity<Object> modificaUser(@Valid @RequestParam("cf") String cf,
                                                @Valid @RequestBody UserToModifyTO userToModifyTO) {
         try {
             errors.checkInformations(cf, userToModifyTO);
@@ -86,7 +106,7 @@ public class UserController extends BaseController {
 
 
     //Metodo per autenticare prendendo in input email e password
-    //
+
     @PostMapping("/user/authenticate")
     public Jwtresponse authenticate(@RequestBody JwtRequest jwtRequest) throws Exception {
         try {
@@ -101,7 +121,7 @@ public class UserController extends BaseController {
         return new Jwtresponse(token);
 
     }
-    @CrossOrigin
+
     @GetMapping(path = "/user/userDelete")
     public ResponseEntity<Object> deleteUser(@RequestParam String cf){
         try {

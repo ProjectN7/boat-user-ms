@@ -32,7 +32,7 @@ public class UserTO {
     private String postalCode;
 
     @NotBlank(message = PHONE_NUMBER_CANNOT_BE_EMPTY)
-    @Pattern(regexp = "^[0-9]{10}$", message = PHONE_NUMBER_INFO)
+    @Pattern(regexp = "[+]?[0-9]{12}", message = PHONE_NUMBER_INFO)
     private String phoneNumber;
 
     @NotBlank(message = BOAT_LICENCE_CANNOT_BE_EMPTY)

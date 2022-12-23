@@ -140,4 +140,6 @@ public class UserService implements UserDetailsService {
 
     public void deleteUserByCf(String cf) { userRepository.deleteUserByCf(cf); }
 
+    public User getUserFromEmail(String email) { return userRepository.getUserFromEmail(email); }
+
 }

@@ -1,6 +1,7 @@
 package com.Project_N7.boat_management.repository;
 
 import com.Project_N7.boat_management.entity.User;
+import com.Project_N7.boat_management.rto.UserRTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -38,5 +39,8 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Modifying(clearAutomatically = true,flushAutomatically = true)
     @Query("UPDATE User SET isActive = 0 WHERE cf = ?1")
     void deleteUserByCf(String cf);
+
+    @Query("SELECT u FROM User u WHERE u.email = ?1")
+    User getUserFromEmail(String email);
 
 }

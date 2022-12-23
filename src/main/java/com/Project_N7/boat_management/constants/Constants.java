@@ -50,7 +50,7 @@ public class Constants {
 
     public static final String CF_NOT_FOUND = "CF non presente";
 
-    public static final String USER_MADE = "La persona è stata aggiunta";
+    public static final String USER_MADE = "Registrazione effettuata con successo. Effettua il login";
 
     public static final String USER_NOT_MADE = "La persona non è stata aggiunta";
 
