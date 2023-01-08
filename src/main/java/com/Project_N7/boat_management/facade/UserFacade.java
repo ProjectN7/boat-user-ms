@@ -22,6 +22,8 @@ public class UserFacade {
     @Autowired
     UserService userService;
 
+
+    /*
     public UserRTO getUserByCf(String cf) throws ErrorException {
         if (!userService.cfExist(cf)) { // Prima chiamata al server per vedere se il
             // cf esiste
@@ -30,6 +32,8 @@ public class UserFacade {
         // Se il numero è presente vado a cercarmi le persone che lo posseggono
         return userService.getUserByCf(cf);
     }
+    */
+
 
     public String userSave(UserTO userTO) {
         String cf = userService.userSave(userTO);
@@ -48,8 +52,8 @@ public class UserFacade {
         return CHANGE_MADE;
     }
 
-    public User getUserFromEmail(String email) throws ErrorException {
-        return userService.getUserFromEmail(email);
+    public User getUserByCf(String cf) throws ErrorException {
+        return userService.getUserByCf(cf);
     }
 
     @Transactional
@@ -60,4 +64,7 @@ public class UserFacade {
         }
         return USER_NOT_CANCELLED;
     }
+
+    public String getCfByEmail(String email) throws ErrorException { return userService.getCfByEmail(email); }
+
 }

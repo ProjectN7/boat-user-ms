@@ -51,6 +51,7 @@ public class UserController extends BaseController {
 
     //Restituisce una lista, vedi di farti restituire uno solo
 
+    /*
     @GetMapping(value = "/user/userList")
     public ResponseEntity<Object> getUserFromCf(@RequestParam String cf) {
         UserRTO userRTOs;
@@ -62,13 +63,14 @@ public class UserController extends BaseController {
         }
             return new ResponseEntity<>(new ServiceResponse(CODE_200, HttpStatus.OK.name(), CF_FOUND, CF_FOUND, userRTOs), HttpStatus.OK);
     }
+    */
 
 
-    @GetMapping(value = "/user/getUserByEmail")
-    public ResponseEntity<Object> getUserByEmail(@RequestParam String email) {
+    @GetMapping(value = "/user/getUserByCf")
+    public ResponseEntity<Object> getUserByCf(@RequestParam String cf) {
         User user;
         try {
-            user = userFacade.getUserFromEmail(email);
+            user = userFacade.getUserByCf(cf);
         } catch (ErrorException e) {
 
             return new ResponseEntity<>(new ServiceResponse(CODE_404, HttpStatus.NOT_FOUND.name(), EXCEPTION, e.getMessage(), e.getMessage()), HttpStatus.NOT_FOUND);
@@ -77,6 +79,19 @@ public class UserController extends BaseController {
 
         return new ResponseEntity<>(new ServiceResponse(CODE_200, HttpStatus.OK.name(), CF_FOUND, CF_FOUND, user), HttpStatus.OK);
 
+    }
+
+
+    @GetMapping(value = "/user/getCfByEmail")
+    public ResponseEntity<Object> getCfByEmail(@RequestParam String email) {
+        String cf;
+        try {
+            cf = userFacade.getCfByEmail(email);
+        } catch (ErrorException e) {
+
+            return new ResponseEntity<>(new ServiceResponse(CODE_404, HttpStatus.NOT_FOUND.name(), EXCEPTION, e.getMessage(), e.getMessage()), HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(new ServiceResponse(CODE_200, HttpStatus.OK.name(), CF_FOUND, CF_FOUND, cf), HttpStatus.OK);
     }
 
     @CrossOrigin
@@ -91,8 +106,8 @@ public class UserController extends BaseController {
     }
 
 
-    @PostMapping(path = "/modificaUser/{cf}")
-    public ResponseEntity<Object> modificaUser(@Valid @RequestParam("cf") String cf,
+    @PostMapping(path = "/user/modificaUser/{cf}")
+    public ResponseEntity<Object> modificaUser(@Valid @PathVariable("cf") String cf,
                                                @Valid @RequestBody UserToModifyTO userToModifyTO) {
         try {
             errors.checkInformations(cf, userToModifyTO);

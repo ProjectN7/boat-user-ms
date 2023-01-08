@@ -11,10 +11,10 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
-
+    /*
     @Query("SELECT u " + "FROM User u WHERE cf=u.cf")
-    User getUserByCf(String cf);
-
+    User getUserrByCf(String cf);
+    */
 
     @Query(value = "SELECT  u.cf " + "FROM User u " + "WHERE u.cf = ?1")
     String cfExist(String cf);
@@ -40,7 +40,10 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query("UPDATE User SET isActive = 0 WHERE cf = ?1")
     void deleteUserByCf(String cf);
 
-    @Query("SELECT u FROM User u WHERE u.email = ?1")
-    User getUserFromEmail(String email);
+    @Query("SELECT u FROM User u WHERE u.cf = ?1")
+    User getUserByCf(String email);
+
+    @Query("SELECT u.cf FROM User u WHERE u.email = ?1")
+    String getCfByEmail(String email);
 
 }

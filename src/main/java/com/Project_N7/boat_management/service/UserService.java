@@ -22,16 +22,22 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-
+/*
     public UserRTO getUserByCf(String cf) {
 
         // Chiamo il metodo trasferisciDaPersonaAPersonaRto per popolarla con i dati che
         // mi servono
         return populateUserRTO(userRepository.getUserByCf(cf));
     }
+
+
+ */
     public boolean cfExist(String cf) {
         return (userRepository.findUserFromCf(cf) != null);
     }
+
+
+
 
     public String userSave(UserTO userTO) {
         User user_to_save = new User();
@@ -140,6 +146,8 @@ public class UserService implements UserDetailsService {
 
     public void deleteUserByCf(String cf) { userRepository.deleteUserByCf(cf); }
 
-    public User getUserFromEmail(String email) { return userRepository.getUserFromEmail(email); }
+    public User getUserByCf(String cf) { return userRepository.getUserByCf(cf); }
+    public String getCfByEmail(String email) { return userRepository.getCfByEmail(email); }
+
 
 }
