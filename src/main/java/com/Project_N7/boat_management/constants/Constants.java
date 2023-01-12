@@ -64,7 +64,7 @@ public class Constants {
 
     public static final String CF_FOUND = "CF presente nel DataBase";
 
-    public static final String INVALID_CREDENTIALS = "INVALID_CREDENTIALS";
+    public static final String INVALID_CREDENTIALS = "Dati immessi non validi, riprova";
 
     public static final String CF_ALREADY_EXIST = "Esiste già una persona con questo codice fiscale";
 

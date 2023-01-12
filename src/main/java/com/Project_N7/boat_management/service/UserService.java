@@ -53,6 +53,7 @@ public class UserService implements UserDetailsService {
         user_to_save.setBoatLicence(userTO.getBoatLicence());
         user_to_save.setEmail(userTO.getEmail());
         user_to_save.setPassword(userTO.getPassword());
+        user_to_save.setIsActive(userTO.getIsActive());
         return userRepository.save(user_to_save).getCf();
         //return user_repository.save(user_to_save).getCf();
     }
